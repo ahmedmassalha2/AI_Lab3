@@ -28,5 +28,24 @@ class Node:
     def updateConflictSet(self):
         for v in self.edges:
             v.conflictSet.append(self)
+            
+    def updateConfSetFromEdge(self, neighbor):
+        for v in neighbor.edges:
+            if v != self and v not in self.conflictSet:
+                self.conflictSet.append(v)
     def getNeighborsColors(self):
         return [ v.color for v in self.edges if v.color != None]
+    def canColor(self, color):
+        for v in self.edges:
+            if v.color != None and v.color == color:
+                return False
+        return True
+    def consis(self):
+        if self.color == None:
+            return False
+        for v in self.edges:
+            if v.color == self.color:
+                return False
+        return True
+
+            

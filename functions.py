@@ -28,6 +28,8 @@ def parseGraph(path):
                 nextV = vertMap[int(data[2])]
             
             newV.addEdge(nextV)
+            nextV.addEdge(newV)
+            
     
     return nVertics, nEdges, vertMap, (nEdges/(nVertics * (nVertics - 1)))
             

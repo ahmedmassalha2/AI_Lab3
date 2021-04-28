@@ -21,3 +21,23 @@ class State:
     def resetRandomColors(self):
         for v in self.vertices:
             v.color = randrange(self.colors) + 1
+    def getNeighbors(self, node):
+        neighbors = set()
+        for v in self.vertices:
+            if node in v.edges:
+                for vn in v.edges:
+                    neighbors.add(vn)
+        if node in neighbors:
+            neighbors.remove( node )
+        return list( neighbors )
+    def isCons(self):
+        for node in self.vertices:
+            if node.consis() == False:
+                return False
+        return True
+    
+    def getNodeIndex(self, v):
+        for i in range(len(self.vertices)):
+            if v == self.vertices[i]:
+                return i
+        return None
