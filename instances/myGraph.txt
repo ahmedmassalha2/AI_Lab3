@@ -1,0 +1,7 @@
+c FILE: jean.col
+c Translated from Stanford GraphBase File: jean.gb
+c Stanford GraphBase ID: book(?jean?,80,0,1,356,0,0,0)
+p edge 80 508
+e 1 2
+e 2 3
+e 1 3
