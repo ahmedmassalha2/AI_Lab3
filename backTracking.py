@@ -50,31 +50,37 @@ class backTracking:
             #This mean we are NOT backjumping
             idx = self.MRV()
             if idx == None:
-                return False
+                return None
         color = self.LCV(self.state.vertices[idx])
         # print(color,self.state.vertices[idx].canColor(color))
+        fail = 0
         for c in color:
             if self.state.vertices[idx].canColor(c):
                self.state.vertices[idx].color = c
                self.state.vertices[idx].updateConflictSet()
                if self.backTrackSearch() != None:
                    return self.state
+               else:
+                   fail += 1
        
-        else:
+        if fail == len(color):
             jumpTo = self.state.getNodeIndex(
                 self.state.vertices[idx].conflictSet[
                     len(self.state.vertices[idx].conflictSet) - 1
                     ])
             self.state.vertices[jumpTo].updateConfSetFromEdge(self.state.vertices[idx])
+            self.state.vertices[idx].color = None
+            self.state.vertices[jumpTo].color = None
             return self.backTrackSearch(jumpTo)
         return None
 
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/myGraph.txt')
-colors = 3
+nVertics, nEdges, vertMap, graphDen = parseGraph('instances/inithx.i.1.col')
+colors = 53
 state = State(list(vertMap.values()),colors)
 alg = backTracking(state)
 state = alg.backTrackSearch()
 for v in state.vertices:
     print('node number', v.id, 'color',v.color)
     for n in v.edges:
-        print(v.id,n.id)
+        if v.color == n.color:
+            exit()

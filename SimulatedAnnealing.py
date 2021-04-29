@@ -2,6 +2,9 @@ from time import time
 import copy as cp
 from random import randrange, uniform
 import numpy as np
+from functions import *
+from Node import Node
+from State import State
 class SimulatedAnnealing:
     def __init__(self, state, initTemp, maxIter, maxTime = 40):
         self.state = state
@@ -48,4 +51,10 @@ class SimulatedAnnealing:
         randomColor = randrange(self.nColors)
         neighbor.vertices[randomNodeIDX].color = randomColor
         return neighbor
-        
+
+
+nVertics, nEdges, vertMap, graphDen = parseGraph('instances/queen5_5.col')
+colors = 5
+state = State(list(vertMap.values()),colors)
+s = SimulatedAnnealing(state, 1000, 100000)
+s.simulate()

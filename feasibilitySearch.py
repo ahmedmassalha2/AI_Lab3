@@ -27,13 +27,9 @@ class feasibilitySearch:
             print("finished with colors = ",self.state.colors,"bad edges = ",self.state.countBadEdges())
         
         
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/jean.col')
-colors =20
+nVertics, nEdges, vertMap, graphDen = parseGraph('instances/le450_5a.col')
+colors =5
 state = State(list(vertMap.values()),colors)
 state.resetRandomColors()
-state.vertices[20].color = None
-state.vertices[17].color = None
 search = feasibilitySearch(state)
-print(search.MRV())
-exit()
 search.search()
