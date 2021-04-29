@@ -79,8 +79,9 @@ colors = 53
 state = State(list(vertMap.values()),colors)
 alg = backTracking(state)
 state = alg.backTrackSearch()
-for v in state.vertices:
-    print('node number', v.id, 'color',v.color)
-    for n in v.edges:
-        if v.color == n.color:
-            exit()
+print(alg.state.isCons())
+# for v in state.vertices:
+#     print('node number', v.id, 'color',v.color)
+#     for n in v.edges:
+#         if v.color == n.color:
+#             exit()
