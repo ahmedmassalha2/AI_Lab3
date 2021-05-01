@@ -53,8 +53,8 @@ class SimulatedAnnealing:
         return neighbor
 
 
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/queen5_5.col')
-colors = 5
-state = State(list(vertMap.values()),colors)
-s = SimulatedAnnealing(state, 1000, 100000)
-s.simulate()
+# nVertics, nEdges, vertMap, graphDen = parseGraph('instances/queen5_5.col')
+# colors = 5
+# state = State(list(vertMap.values()),colors)
+# s = SimulatedAnnealing(state, 1000, 100000)
+# s.simulate()

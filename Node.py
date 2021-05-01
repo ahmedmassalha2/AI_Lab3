@@ -5,12 +5,20 @@ class Node:
         self.id = vNumber
         self.color = None
         self.edges = []
+        self.checked = []
         self.conflictSet = []
+        self.painted = []
         self.badEdges = 0
         
     def addEdge(self, edge):
         self.edges.append(edge)
         
+    def update(self, color):
+        self.color = color
+        self.painted.append(color)
+        for v in self.edges:
+            v.painted.append(color)
+            
     def countConstrains(self):
         cons = 0
         self.badEdges = 0
