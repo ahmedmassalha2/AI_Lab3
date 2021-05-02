@@ -10,7 +10,6 @@ class Greedy:
     def run(self):
         colorsNumber = 0
         colors = []
-        
         for node in self.nodes:
             currentColors = [v.color for v in node.edges if v != None]
             if len(list(set(colors) - set(currentColors))) == 0:
@@ -19,7 +18,7 @@ class Greedy:
             node.color = list(set(colors) - set(currentColors))[0]
         self.numberOfColors = colorsNumber
             
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/inithx.i.1.col')
+# nVertics, nEdges, vertMap, graphDen = parseGraph('instances/inithx.i.1.col')
 
 # alg = Greedy(list(vertMap.values()))
 # print(alg.numberOfColors)
