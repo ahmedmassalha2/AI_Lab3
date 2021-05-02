@@ -12,7 +12,11 @@ class State:
         for node in self.vertices:
             fitness += node.countConstrains()
         return fitness
-    
+    def makeSwaps(self, color, swapWith):
+        for node in self.vertices:
+            if node.color == color:
+                node.color = swapWith
+                
     def countBadEdges(self):
         badEdges = 0
         for node in self.vertices:
@@ -59,4 +63,7 @@ class State:
         return None
     def resetRandomColor(self):
         self.vertices[randrange(len(self.vertices))] = randrange(self.colors) + 1
+    def printDetailes(self):
+        print("graph is legal: ", self.isCons())
+        print("Min colors is: ", self.colors)
         

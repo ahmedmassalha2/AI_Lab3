@@ -28,12 +28,12 @@ class feasibilitySearch:
             print("finished with colors = ",self.state.colors,"bad edges = ",self.state.countBadEdges())
         
         
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/mulsol.i.1.col')
-alg = Greedy(list(vertMap.values()))
+# nVertics, nEdges, vertMap, graphDen = parseGraph('instances/le450_15b.col')
+# alg = Greedy(list(vertMap.values()))
 
-state = State(alg.nodes, alg.numberOfColors)
-search = feasibilitySearch(state)
-search.search()
+# state = State(alg.nodes, alg.numberOfColors)
+# search = feasibilitySearch(state)
+# search.search()
 # res = search.binarySearchOnColors(state, nVertics)
 # setColors = set()
 # for v in res.vertices:

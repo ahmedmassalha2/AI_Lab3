@@ -10,6 +10,9 @@ class backTracking:
         for i in range(self.state.colors):
             self.colors.append(i+1)
         
+    def resetColors(self):
+        for i in range(self.state.colors):
+            self.colors.append(i+1)
     def MRV(self):
         #All the nodes without colors
         freeNodes = [ (self.state.vertices[i],i) for i in range(len(self.state.vertices)) 
@@ -74,6 +77,19 @@ class backTracking:
             self.state.vertices[jumpTo].color = None
             return self.backTrackSearch(jumpTo)
         return None
+    def run(self, state, vertMap):
+        
+        lastSuccess = None
+        while True:
+            self.__init__(State(cp.deepcopy(list(vertMap.values())),self.state.colors - 1))
+            res = self.backTrackSearch()
+            if res == None:
+                return lastSuccess
+            else:
+                print("success with ",res.colors,"Colors")
+                lastSuccess = res
+        return None
+            
 
 
 def binarySearchOnColors(state, nVertics):
@@ -99,7 +115,12 @@ def binarySearchOnColors(state, nVertics):
  
     # If we reach here, then the element was not present
     return lastSuccess
-alg = Greedy(list(vertMap.values()))
-state = State(alg.nodes, alg.numberOfColors)
-alg = backTracking(state)
+
+nVertics, nEdges, vertMap, graphDen = parseGraph('instances/inithx.i.1.col')
+alg = Greedy(cp.deepcopy(list(vertMap.values())))
 print(alg.numberOfColors)
+state = State(cp.deepcopy(list(vertMap.values())),alg.numberOfColors)
+alg = backTracking(state)
+# print(alg.backTrackSearch() == None)
+res = alg.run(state,vertMap)
+print(res.printDetailes())
