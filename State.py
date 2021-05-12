@@ -6,7 +6,32 @@ class State:
     def __init__(self,state, colors):
         self.vertices = state
         self.colors = colors
+        self.visited = 0
     
+    def kempeOBJ(self):
+        segmaCI = 0
+        for color in range(self.colors):
+            c = color + 1
+            ci = 0
+            for node in self.vertices:
+                if node.color == c:
+                    ci += 1
+            segmaCI += (ci * ci)
+        return segmaCI
+    def getHypredFitness(self):
+        
+        segmaCI, segmaBI = 0, 0
+        for color in range(self.colors):
+            c = color + 1
+            bi, ci = 0, 0
+            for node in self.vertices:
+                bi += node.countBadEdges()
+                if node.color == c:
+                    ci += 1
+            segmaCI += (ci * ci)
+            segmaBI += (2 * ci * bi)
+        return segmaBI - segmaCI
+            
     def fitness(self):
         fitness = 0
         for node in self.vertices:
@@ -63,6 +88,14 @@ class State:
         return None
     def resetRandomColor(self):
         self.vertices[randrange(len(self.vertices))] = randrange(self.colors) + 1
+    def updateColors(self):
+        colors = set()
+        for node in self.vertices:
+            colors.add(node.color)
+            
+        print("aaaaaaaaaaaaaa", self.colors)
+        self.colors = len(list(colors))
+        print("aaaaaaaaaaaaaa", self.colors)
     def printDetailes(self):
         print("graph is legal: ", self.isCons())
         print("Min colors is: ", self.colors)

@@ -11,6 +11,7 @@ class SimulatedAnnealing:
         self.initTemp = initTemp
         self.maxIter = maxIter
         self.maxTime = maxTime
+        self.searchedStates = 0
         
         
     def simulate(self):
@@ -19,6 +20,7 @@ class SimulatedAnnealing:
         temp = self.initTemp
         for iteration in range(self.maxIter):
             for j in range(100):
+                self.searchedStates += 1
                 cost = self.state.fitness()
                 
                 if cost == 0 or time() - startTime > self.maxTime:
@@ -53,8 +55,3 @@ class SimulatedAnnealing:
         return neighbor
 
 
-# nVertics, nEdges, vertMap, graphDen = parseGraph('instances/queen5_5.col')
-# colors = 5
-# state = State(list(vertMap.values()),colors)
-# s = SimulatedAnnealing(state, 1000, 100000)
-# s.simulate()

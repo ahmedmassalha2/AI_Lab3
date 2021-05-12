@@ -29,9 +29,9 @@ def parseGraph(path):
             
             newV.addEdge(nextV)
             nextV.addEdge(newV)
-            
-    
-    return nVertics, nEdges, vertMap, (nEdges/(nVertics * (nVertics - 1)))
+    density = (nEdges/(nVertics * (nVertics - 1)))      
+    print("Number of nodes:",nVertics,"Number of edges:",nEdges,"Graph density:", density)
+    return nVertics, nEdges, vertMap,density
             
         
 # nVertics, nEdges, vertMap = parseGraph('instances/queen8_8.col')
