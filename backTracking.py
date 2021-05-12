@@ -3,8 +3,10 @@ from State import State
 from functions import *
 import copy as cp
 from greedy import Greedy
+
 class backTracking:
     def __init__(self, state):
+        self.searchedStates = 0
         self.state = state
         self.colors = []
         for i in range(self.state.colors):
@@ -43,10 +45,6 @@ class backTracking:
     
     
     def backTrackSearch(self, idx = None):
-        # for v in state.vertices:
-        #     print('node number', v.id, 'color',v.color)
-        #     for n in v.edges:
-        #         print(v.id,n.id)
         if self.state.isCons() == True:
             return self.state
 
@@ -55,6 +53,7 @@ class backTracking:
             idx = self.MRV()
             if idx == None:
                 return None
+        self.searchedStates += 1
         color = self.LCV(self.state.vertices[idx])
         # print(color,self.state.vertices[idx].canColor(color))
         fail = 0
@@ -77,50 +76,18 @@ class backTracking:
             self.state.vertices[jumpTo].color = None
             return self.backTrackSearch(jumpTo)
         return None
-    def run(self, state, vertMap):
+    def run(self, state, vertMap, firstState):
         
-        lastSuccess = None
+        lastSuccess = firstState
         while True:
+            print("Trying with",self.state.colors - 1,"Colors")
             self.__init__(State(cp.deepcopy(list(vertMap.values())),self.state.colors - 1))
             res = self.backTrackSearch()
             if res == None:
+                print("\n=========\nSearch stopped, Coloring with",self.state.colors,"Couldnt succeed\n=========")
                 return lastSuccess
             else:
                 print("success with ",res.colors,"Colors")
                 lastSuccess = res
         return None
-            
 
-
-def binarySearchOnColors(state, nVertics):
-    low = 1
-    high = nVertics
-    mid = 0
-    lastSuccess = None
-    while low < high:
- 
-        mid = (high + low) // 2
-        state.colors = mid
-        alg = backTracking(cp.deepcopy(state))
-        res = alg.backTrackSearch()
-        
-        # If x is greater, ignore left half
-        if (res == None or not alg.state.isCons()):
-            low = mid + 1
-            
-        else:
-            lastSuccess = cp.deepcopy(res)
-            high = mid - 1
-
- 
-    # If we reach here, then the element was not present
-    return lastSuccess
-
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/inithx.i.1.col')
-alg = Greedy(cp.deepcopy(list(vertMap.values())))
-print(alg.numberOfColors)
-state = State(cp.deepcopy(list(vertMap.values())),alg.numberOfColors)
-alg = backTracking(state)
-# print(alg.backTrackSearch() == None)
-res = alg.run(state,vertMap)
-print(res.printDetailes())

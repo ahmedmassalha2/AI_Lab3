@@ -4,6 +4,7 @@ import copy as cp
 import numpy as np
 from time import time
 from functions import *
+from greedy import Greedy
 class Agent:
     def __init__(self, state, fitness):
         self.nodes = state
@@ -23,7 +24,9 @@ class geneticAlgorithm:
         self.GA_ELITRATE, self.maxIterations, self.populationSize, self.GA_MUTATIONRATE = GA_ELITRATE, maxIterations, populationSize, GA_MUTATIONRATE
         self.population, self.nodes, self.colors = [], nodes, colors
         self.avg, self.std = 0, 0
+        print("initializing population with", colors,"colors")
         self.initPop()
+        print("finish init")
         
         
         
@@ -62,7 +65,11 @@ class geneticAlgorithm:
     
     def mutate(self, nodes):
         for v in nodes:
-            v.color = randrange(self.colors) + 1
+            found = False
+            for nei in v.edges:
+                if v.color == nei.color and found == False:
+                    v.color = randrange(self.colors) + 1
+                    found = True
         return nodes
     def mating(self):
         buffer = self.population[:int(self.populationSize * self.GA_ELITRATE)]
@@ -90,14 +97,3 @@ class geneticAlgorithm:
             if(self.population[0].fitness == 0):
                 return self.population[0]
             startTime = time()
-
-
-nVertics, nEdges, vertMap, graphDen = parseGraph('instances/myGraph.txt')
-
-alg = geneticAlgorithm(list(vertMap.values()), 2)
-res = alg.run()
-for node in res.nodes:
-    print("vvvvvvvvvvvvvvvvvvvvvv",node.id)
-    for v in node.edges:
-        print(node.color, v.color)
-    print("vvvvvvvvvvvvvvvvvvvvvv")
